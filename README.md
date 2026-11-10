@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextPizza
 
-## Getting Started
+Frontend пиццерии на Next.js. Backend живёт отдельно: [Pizza](https://github.com/grindelwald098-cyber/Pizza).
 
-First, run the development server:
+Основная ветка: `frontend-dev` (изменения только через pull request).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Структура
+
+```text
+.
+├── public/                    # статика (иконки, картинки, шрифты)
+├── src/
+│   ├── app/                   # роутинг (App Router)
+│   │   ├── (auth)/            # route group — не влияет на URL
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx
+│   │   │   └── register/
+│   │   │       └── page.tsx
+│   │   ├── (main)/
+│   │   │   ├── dashboard/
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── loading.tsx
+│   │   │   └── settings/
+│   │   │       └── page.tsx
+│   │   ├── api/               # API routes
+│   │   │   └── users/
+│   │   │       └── route.ts
+│   │   ├── layout.tsx         # root layout
+│   │   ├── page.tsx           # главная
+│   │   ├── error.tsx
+│   │   ├── not-found.tsx
+│   │   └── globals.css
+│   │
+│   ├── components/
+│   │   ├── ui/                # переиспользуемые примитивы (Button, Input, Modal)
+│   │   │   ├── Button/
+│   │   │   │   ├── Button.tsx
+│   │   │   │   ├── Button.module.css
+│   │   │   │   └── index.ts
+│   │   │   └── Input/
+│   │   ├── layout/            # Header, Footer, Sidebar
+│   │   │   ├── Header/
+│   │   │   └── Footer/
+│   │   └── features/          # компоненты конкретной фичи
+│   │       └── auth/
+│   │           └── LoginForm/
+│   │
+│   ├── lib/                   # утилиты, хелперы, конфиги
+│   │   ├── api.ts             # fetch-обёртки
+│   │   ├── utils.ts           # cn(), formatDate() и т.п.
+│   │   └── constants.ts
+│   │
+│   ├── hooks/                 # кастомные хуки
+│   │   ├── useAuth.ts
+│   │   └── useDebounce.ts
+│   │
+│   ├── store/                 # глобальный стейт
+│   │   └── authStore.ts
+│   │
+│   ├── types/                 # общие типы
+│   │   ├── user.ts
+│   │   └── api.ts
+│   │
+│   ├── services/              # слой работы с API
+│   │   ├── authService.ts
+│   │   └── userService.ts
+│   │
+│   ├── config/                # конфиги (env, роуты, темы)
+│   │   ├── routes.ts
+│   │   └── env.ts
+│   │
+│   └── styles/                # глобальные стили, переменные
+│       ├── variables.css
+│       └── mixins.css
+│
+├── .env.local
+├── next.config.ts
+├── tsconfig.json
+└── package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Запуск
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+cp .env.local.example .env.local
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Открой [http://localhost:3000](http://localhost:3000).
